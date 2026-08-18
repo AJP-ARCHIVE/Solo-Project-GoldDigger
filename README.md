@@ -83,7 +83,7 @@ This ensures users always know whether the app is online and able to provide liv
 ## License
 
 This project is licensed under the MIT License.  
-See the [License](./License) file for details.
+See the [License](./LICENSE) file for details.
 
 
 
