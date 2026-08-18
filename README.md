@@ -29,17 +29,14 @@ The app is a widget that allows a user to track live gold prices and invest/purc
 - "pdfkit-table": "^0.2.11"
 ## Installation
 
-Install with package manager of choice.
+Clone the repository, navigate into the project folder, and install dependencies:
 
 ```bash
-npm install Solo Project GoldDigger
-# or
-yarn add Solo Project GoldDigger
-# or
-pnpm add Solo Project GoldDigger
+npm install 
 ```
-
+## Start the development server
 To run the project locally and see the live gold price demo, start the development server:
+
 ```bash
 npm run dev
 ```
