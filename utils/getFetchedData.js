@@ -7,6 +7,7 @@ import { changeGoldPrice } from "./changeGoldPrice.js"
 // globally store gold price and lastUpdated date/time
 const goldCache = {
     price: null,
+    apiPrice: null,
     lastUpdated: null,
 }
 
@@ -19,32 +20,29 @@ export async function getFetchedData() {
        
         if(data.updatedAt !== goldCache.lastUpdated) {
           
-            //goldCache.price = (data.price + 200.00).toFixed(2)
-            // if data is updated by API -> update cached data with api data
-            if (goldCache.price === data.price.toFixed(2)) {
-                //console.log('no api data change')
+            // if no data price change from api then manipulate the gold price randomly using util function 
+            // determine if api updated gold price by comparing cached gold price from api with the new fetched api gold price
+            if (goldCache.apiPrice === data.price.toFixed(2)) {
+                // console.log('no api data change', goldCache.apiPrice)
                 goldCache.price = changeGoldPrice(data.price)
+                // console.log('new price', goldCache.price)
                 goldCache.lastUpdated = data.updatedAt
             }
-            // if no data price change from api then manipulate the gold price randomly using util function 
+            // if data is updated by API -> update cached price and apiPrice data
             else {
                 // console.log('api data changed')
                 // console.log('data price', data.price)
                 // console.log('cached price', goldCache.price)
+                // set new gold price from api as cached data
                 goldCache.price = data.price.toFixed(2)
+                // store new API price to use as comparison 
+                goldCache.apiPrice = data.price.toFixed(2)
                 goldCache.lastUpdated = data.updatedAt
             }
         
-            
-            // console.log('data price', data.price)
-            // console.log('data type', typeof data.price)
-            // console.log('cache', goldCache)
-            // console.log('cache type', typeof goldCache)
         
         }
         
-        // no data change from API -> invoke util func to manipulate random gold price change 
-    
      
         return goldCache
         
