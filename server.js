@@ -11,10 +11,7 @@ const __dirname = import.meta.dirname
 
 // create a Node.js server
 const server = http.createServer(async (req, res) => {
-    // res.statusCode = 200
-    // res.setHeader('Content-Type', 'text/html')
-    // res.end('<h1>Hello world!</h1>')
-    // serve static files 
+
 
     if (req.url === '/api') {
         if (req.method === 'POST') {
