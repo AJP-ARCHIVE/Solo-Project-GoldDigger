@@ -3,7 +3,7 @@ import { sendServerResponse } from "../utils/sendServerResponse.js"
 import { parseJSONBody } from "../utils/parseJSONBody.js"
 import { investmentEvents } from "../events/investmentEvents.js"
 import PDFDocument from 'pdfkit' // pdf generator 
-import PDFTable from 'pdfkit-table' // pdf table
+
 
 
 // handling live gold price data
@@ -17,12 +17,12 @@ export async function handleGold(res) {
         // retrieve price from gold api
         const { price, lastUpdated} = await getFetchedData()
         res.write(`data: ${JSON.stringify({price, lastUpdated})}\n\n`) // send data to client 
-        //goldPrice = price 
+
         // invoke data fetch every 30 seconds to prevent api fetch spam
         setInterval(async () => {
             const { price, lastUpdated } = await getFetchedData()
             res.write(`data: ${JSON.stringify({price, lastUpdated})}\n\n`)
-            //goldPrice = price 
+      
         }, 30000)
     }
     catch (err) {
@@ -37,14 +37,13 @@ export async function handleInvestment(req, res) {
     try {
         const parsedBody = await parseJSONBody(req)
    
-        // post transaction -> create/write to log
-        //const post = await postNewInvestment(parsedBody)
+    
         // emit the event 
-        console.log("ABOUT TO EMIT");
+        //console.log("ABOUT TO EMIT");
 
         investmentEvents.emit('gold-investment', parsedBody)
 
-        console.log("EMIT FINISHED");
+        //console.log("EMIT FINISHED");
 
   
         // format parsedBody data to return to client 
@@ -95,8 +94,6 @@ export async function handleInvestment(req, res) {
 
             doc.end() // finalize pdf generation -> send http response 
 
-            // send response back with the received data input
-            //sendServerResponse(res, 201,'plain/text', JSON.stringify(formattedParsedBody))
 
     }
     catch (err) {
